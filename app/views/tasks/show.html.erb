@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Task name:</strong>
+  <strong>タスク名:</strong>
   <%= @task.task_name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>タスク内容:</strong>
   <%= @task.description %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to '編集', edit_task_path(@task) %> |
+<%= link_to 'タスク一覧へ戻る', tasks_path %>
