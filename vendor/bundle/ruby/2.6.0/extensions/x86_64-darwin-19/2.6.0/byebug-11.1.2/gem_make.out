@@ -1,0 +1,19 @@
+current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/byebug-11.1.2/ext/byebug
+/Users/satouyoshiaki/.rbenv/versions/2.6.5/bin/ruby -I /Users/satouyoshiaki/.rbenv/versions/2.6.5/lib/ruby/2.6.0 -r ./siteconf20200423-61490-14yb9nr.rb extconf.rb
+creating Makefile
+
+current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/byebug-11.1.2/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/byebug-11.1.2/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/byebug-11.1.2/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20200423-61490-1mw9vf4/byebug
