@@ -19,9 +19,9 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '必要項目を入力して、createボタンを押した場合' do
       it 'データが保存される' do
         visit new_task_path
-        fill_in "タスク名", with: "task"
-        fill_in "タスク内容", with: "description"
-        click_button "Create Task"
+        fill_in "task[task_name]", with: "task"
+        fill_in "task[description]", with: "description"
+        click_button "登録する"
 
 
         expect(page).to have_content "task"

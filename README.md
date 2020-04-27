@@ -2,6 +2,6 @@
 
 
 
-## テーブル名 :task
+## テーブル名 :tasks
 - task_name :string
 - description :text
