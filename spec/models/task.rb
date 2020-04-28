@@ -1,14 +1,16 @@
 require 'rails_helper'
+
 RSpec.describe 'タスク管理機能', type: :model do
-
-
-  context '新規作成画面でタスク名を入れなかったとき' do
-    let(:task_name) {''}
-
-    it 'バリデーション が働いてエラーになる' do
-      whithin '#error_explanation' do
-        expect(page).to have_content '名称を入力してください'
-      end 
-    end
+  it 'task_nameが空ならバリデーションが通らない' do
+    task = Task.new(name: '', content: '失敗テスト')
+    expect(task).not_to be_valid
+  end
+  it 'descriptionが空ならバリデーションが通らない' do
+    task = Task.new(name: '失敗テスト', content: '')
+    expect(task).not_to be_valid
+  end
+  it 'task_nameとdescriptionに内容が記載されていればバリデーションが通る' do
+    task = Task.new(name: '成功テスト', content: '成功テスト')
+    expect(task).to be_valid
   end
 end
