@@ -14,7 +14,7 @@
      <%= form.hidden_field :search, value:"true" %>
      <%= form.submit name="検索する" %>
      <% end %>
-     <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class:"btn btn-primary" %>
+     <a href=''><%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "btnset" %></a>
 </div>
 
 
@@ -52,7 +52,7 @@
 
 <br>
 
-<%= link_to 'タスクの作成', new_task_path %>
+<%= link_to 'タスクの作成', new_task_path, class: "create_btn" %>
 
 
 
