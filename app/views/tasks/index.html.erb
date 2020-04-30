@@ -9,10 +9,11 @@
      <%= form.text_field :title, class: "form-control" %>
      <%= form.label :status_search, "ステータスで検索" %>
      <%= form.select :status, ["未着手","着手中","完了"],{include_blank:"選択"}, class:"form-control" %>
-     
+
      <%= form.hidden_field :search, value:"true" %>
      <%= form.submit name="検索する" %>
      <% end %>
+     <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class:"btn btn-primary" %>
 </div>
 
 
