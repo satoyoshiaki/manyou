@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     @tasks = Task.page(params[:page]).per(10)
 
     if params[:sort_expired]
-      @tasks = Task.all.order(description: :asc)
+      @tasks = Task.all.order(deadline: "DESC")
       @tasks = Task.page(params[:page]).per(10)
     end
 
@@ -17,7 +17,7 @@ class TasksController < ApplicationController
       if params[:task_name].present? and params[:status].present?
         @tasks = @tasks.title_search params[:task_name]
         @tasks = @tasks.status_search params[:status]
-      elsif params[:title].present?
+      elsif params[:task_name].present?
         @tasks = @tasks.title_search params[:task_name]
       elsif params[:status].present?
         @tasks = @tasks.status_search params[:status]
