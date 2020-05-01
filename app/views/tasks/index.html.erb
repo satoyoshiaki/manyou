@@ -47,12 +47,14 @@
         <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しても宜しいでしょうか？' } %></td>
       </tr>
     <% end %>
+    <%= paginate @tasks %>
   </tbody>
 </table>
 
 <br>
 
 <%= link_to 'タスクの作成', new_task_path, class: "create_btn" %>
+
 
 
 
