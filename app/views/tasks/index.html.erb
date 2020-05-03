@@ -9,13 +9,15 @@
      <%= form.label :task_name, "タスク名" %>
      <%= form.text_field :task_name, class: "form-control" %>
      <%= form.label :status, "ステータスで検索" %>
-     <%= form.select :status, ["未着手","着手中","完了"],{include_blank:"選択"}, class:"form-control" %>
+     <%= form.select :status, ["未着手","着手中","完了"],{include_blank:"選択"}, { id: "search_status", class: "form-control" } %>
 
      <%= form.hidden_field :search, value:"true" %>
      <%= form.submit name="検索する" %>
      <% end %>
-     <a href=''><%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "btnset" %></a>
+     <a href=''><%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "btnset1" %></a>
+     <%= link_to "優先順位でソートする", tasks_path(sort_rank: "true"), class: "btnset2" %></a>
 </div>
+
 
 
 

@@ -12,6 +12,11 @@ class TasksController < ApplicationController
       @tasks = Task.page(params[:page]).per(10)
     end
 
+    if params[:sort_rank]
+      @tasks = Task.all.order(status: "DESC")
+      @tasks = Task.page(params[:page]).per(10)
+    end
+
 
     if params[:search].present?
       if params[:task_name].present? and params[:status].present?
