@@ -27,15 +27,16 @@ describe "タスク管理機能", type: :system do
 
       it "終了期限の昇順で表示される" do
         visit tasks_path
-        click_link "終了期限でソートする", href: tasks_path(sort_expired: "true")
+        click_link "終了期限でソートする"
         task_list = all("#task_row")
-        expect(task_list[0]).to have_content "task1"
-        expect(task_list[1]).to have_content "task2"
+        expect(task_list[0]).to have_content "task2"
+        expect(task_list[1]).to have_content "task1"
       end
 
       it "優先順位の降順で表示される" do
         visit tasks_path
-        click_link "優先順位出でソートする", href: tasks_path(sort_rank: "true")
+        click_link('優先順位でソートする')
+        save_and_open_page
         task_list = all("#task_row")
         expect(task_list[0]).to have_content "task2"
         expect(task_list[1]).to have_content "task1"

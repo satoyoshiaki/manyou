@@ -1,23 +1,18 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all.order(id: "DESC")
-    @tasks = Task.page(params[:page]).per(10)
-
+    @tasks = Task.all.order(id: "DESC").page(params[:page]).per(10)
+    # @tasks = Task
     if params[:sort_expired]
-      @tasks = Task.all.order(deadline: "DESC")
-      @tasks = Task.page(params[:page]).per(10)
+      @tasks = Task.all.order(deadline: "DESC").page(params[:page]).per(10)
+      # @tasks = Task
     end
-
     if params[:sort_rank]
-      @tasks = Task.all.order(status: "DESC")
-      @tasks = Task.page(params[:page]).per(10)
+      @tasks = Task.all.order(status: "DESC").page(params[:page]).per(10)
+      # @tasks = Task
     end
-
-
     if params[:search].present?
       if params[:task_name].present? and params[:status].present?
         @tasks = @tasks.title_search params[:task_name]
@@ -28,28 +23,22 @@ class TasksController < ApplicationController
         @tasks = @tasks.status_search params[:status]
       end
     end
-
   end
-
   # GET /tasks/1
   # GET /tasks/1.json
   def show
   end
-
   # GET /tasks/new
   def new
     @task = Task.new
   end
-
   # GET /tasks/1/edit
   def edit
   end
-
   # POST /tasks
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'タスクを作成しました' }
@@ -60,7 +49,6 @@ class TasksController < ApplicationController
       end
     end
   end
-
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
@@ -74,7 +62,6 @@ class TasksController < ApplicationController
       end
     end
   end
-
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
@@ -84,13 +71,11 @@ class TasksController < ApplicationController
       format.json { head :no_content }
     end
   end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
     end
-
     # Only allow a list of trusted parameters through.
     def task_params
       params.require(:task).permit(:task_name, :description, :deadline, :status, :priority)

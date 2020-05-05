@@ -1,5 +1,5 @@
 current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/websocket-driver-0.7.1/ext/websocket-driver
-/Users/satouyoshiaki/.rbenv/versions/2.6.5/bin/ruby -I /Users/satouyoshiaki/.rbenv/versions/2.6.5/lib/ruby/2.6.0 -r ./siteconf20200423-61490-14hgndb.rb extconf.rb
+/Users/satouyoshiaki/.rbenv/versions/2.6.5/bin/ruby -I /Users/satouyoshiaki/.rbenv/versions/2.6.5/lib/ruby/2.6.0 -r ./siteconf20200505-53069-139huej.rb extconf.rb
 creating Makefile
 
 current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/websocket-driver-0.7.1/ext/websocket-driver
@@ -12,4 +12,4 @@ linking shared-object websocket_mask.bundle
 
 current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/websocket-driver-0.7.1/ext/websocket-driver
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20200423-61490-64fo38
+/usr/bin/install -c -m 0755 websocket_mask.bundle ./.gem.20200505-53069-1tmtpqr

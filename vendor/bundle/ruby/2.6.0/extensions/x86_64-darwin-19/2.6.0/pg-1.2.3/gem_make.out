@@ -1,5 +1,5 @@
 current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/pg-1.2.3/ext
-/Users/satouyoshiaki/.rbenv/versions/2.6.5/bin/ruby -I /Users/satouyoshiaki/.rbenv/versions/2.6.5/lib/ruby/2.6.0 -r ./siteconf20200423-61490-vl02zy.rb extconf.rb
+/Users/satouyoshiaki/.rbenv/versions/2.6.5/bin/ruby -I /Users/satouyoshiaki/.rbenv/versions/2.6.5/lib/ruby/2.6.0 -r ./siteconf20200505-53069-gbh9eq.rb extconf.rb
 checking for pg_config... yes
 Using config values from /usr/local/bin/pg_config
 checking for libpq-fe.h... yes
@@ -150,4 +150,4 @@ linking shared-object pg_ext.bundle
 
 current directory: /Users/satouyoshiaki/workspace/万葉課題/manyou_exam/vendor/bundle/ruby/2.6.0/gems/pg-1.2.3/ext
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 pg_ext.bundle ./.gem.20200423-61490-evavlh
+/usr/bin/install -c -m 0755 pg_ext.bundle ./.gem.20200505-53069-1k6x339
