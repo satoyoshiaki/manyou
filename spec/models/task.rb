@@ -6,7 +6,7 @@ RSpec.describe 'タスク管理機能', type: :model do
     expect(task).not_to be_valid
   end
   it 'descriptionが空ならバリデーションが通らない' do
-    task = Task.new(name: '失敗テスト', content: '')
+    task = Task.new(task_name: '失敗テスト', description: '')
     expect(task).not_to be_valid
   end
   it 'task_nameとdescriptionに内容が記載されていればバリデーションが通る' do
