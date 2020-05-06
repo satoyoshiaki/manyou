@@ -1,17 +1,16 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  # GET /tasks
-  # GET /tasks.json
+
   def index
     @tasks = Task.all.order(id: "DESC").page(params[:page]).per(10)
-    # @tasks = Task
+   
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: "DESC").page(params[:page]).per(10)
-      # @tasks = Task
+    
     end
     if params[:sort_rank]
       @tasks = Task.all.order(status: "DESC").page(params[:page]).per(10)
-      # @tasks = Task
+  
     end
     if params[:search].present?
       if params[:task_name].present? and params[:status].present?
@@ -24,19 +23,17 @@ class TasksController < ApplicationController
       end
     end
   end
-  # GET /tasks/1
-  # GET /tasks/1.json
+
   def show
   end
-  # GET /tasks/new
+ 
   def new
     @task = Task.new
   end
-  # GET /tasks/1/edit
+
   def edit
   end
-  # POST /tasks
-  # POST /tasks.json
+
   def create
     @task = Task.new(task_params)
     respond_to do |format|
@@ -49,8 +46,7 @@ class TasksController < ApplicationController
       end
     end
   end
-  # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
+
   def update
     respond_to do |format|
       if @task.update(task_params)
@@ -62,8 +58,7 @@ class TasksController < ApplicationController
       end
     end
   end
-  # DELETE /tasks/1
-  # DELETE /tasks/1.json
+
   def destroy
     @task.destroy
     respond_to do |format|
@@ -72,11 +67,11 @@ class TasksController < ApplicationController
     end
   end
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_task
       @task = Task.find(params[:id])
     end
-    # Only allow a list of trusted parameters through.
+
     def task_params
       params.require(:task).permit(:task_name, :description, :deadline, :status, :priority)
     end
