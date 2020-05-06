@@ -1,63 +1,67 @@
-require 'rails_helper'
-RSpec.describe 'タスク管理機能', type: :system do
-
+require "rails_helper"
+describe "タスク管理機能", type: :system do
   before do
-    # 「タスク一覧画面」や「タスク詳細画面」などそれぞれのテストケースで、before内のコードが実行される
-    # 各テストで使用するタスクを1件作成する
-    # 作成したタスクオブジェクトを各テストケースで呼び出せるようにインスタンス変数に代入
-    @task = FactoryBot.create(:task, task_name: 'task')
+    @task = FactoryBot.create(:task)
   end
-
-
-
-
-
-  describe 'タスク一覧画面' do
-    context 'タスクを作成した場合' do
-      it '作成済みのタスクが表示される' do
-        # beforeに必要なタスクデータが作成されるので、ここでテストデータ作成処理を書く必要がない
+  describe "タスク一覧表示機能" do
+    context "タスクを作成したとき" do
+      before do
         visit tasks_path
-        expect(page).to have_content 'task'
+      end
+      it "作成したタスクが表示される" do
+        expect(page).to have_content "task1"
       end
     end
-  end
 
-
-    context '複数のタスクを作成した場合' do
-      it 'タスクが作成日時の降順に並んでいる' do
-        new_task = FactoryBot.create(:task, task_name: 'new_task')
+    context "複数のタスクを作成したとき" do
+      before do
+        FactoryBot.create(:task, task_name: "task2", deadline: "2020-05-02", status: "完了", priority: "低")
         visit tasks_path
+      end
+
+      it "タスクが作成日時の降順で表示される" do
+        task_list = all("#task_row")
+        expect(task_list[0]).to have_content "task2"
+        expect(task_list[1]).to have_content "task1"
+      end
+
+      it "終了期限の昇順で表示される" do
+        visit tasks_path
+        click_link "終了期限でソートする"
+        task_list = all("#task_row")
+        expect(task_list[0]).to have_content "task2"
+        expect(task_list[1]).to have_content "task1"
+      end
+
+      it "優先順位の降順で表示される" do
+        visit tasks_path
+        click_link('優先順位でソートする')
         save_and_open_page
-        task_list = all('#task_row') # タスク一覧を配列として取得するため、View側でidを振っておく
-        expect(task_list[0]).to have_content 'new_task'
-        expect(task_list[1]).to have_content 'task'
+        task_list = all("#task_row")
+        expect(task_list[0]).to have_content "task2"
+        expect(task_list[1]).to have_content "task1"
       end
-    end
 
-  describe 'タスク登録画面' do
-    context '必要項目を入力して、createボタンを押した場合' do
-      it 'データが保存される' do
-        visit new_task_path
-        fill_in "task[task_name]", with: "task"
-        fill_in "task[description]", with: "description"
-        click_button "登録する"
+      it "タイトルでで検索できる" do
+        visit tasks_path
+        fill_in "task_name", with: "task1"
+        click_button "検索する"
+        expect(page).to have_content "task1"
+      end
 
+      it "ステータスで検索できる" do
+        visit tasks_path
+        select "着手中", from: "search_status"
+        click_button "検索する"
+        expect(page).to have_content "task1"
+      end
 
-        expect(page).to have_content "task"
-        expect(page).to have_content 'description'
+      it "タスク名とステータスの両方で検索できる" do
+        fill_in "タスク名", with: "task2"
+        select "完了", from: "search_status"
+        click_button "検索する"
+        expect(page).to have_content "task2"
       end
     end
   end
-  
-  describe 'タスク詳細画面' do
-     context '任意のタスク詳細画面に遷移した場合' do
-       it '該当タスクの内容が表示されたページに遷移する' do
-         task = FactoryBot.create(:task)
-         visit task_path(task)
-         expect(page).to have_content "task"
-         expect(page).to have_content 'description'
-       end
-     end
-  end
-
 end

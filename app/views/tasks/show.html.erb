@@ -10,5 +10,22 @@
   <%= @task.description %>
 </p>
 
+<p>
+  <strong>修了期限:</strong>
+  <%= @task.deadline.strftime("%Y年%-m月%-d日 %-H時%-M分") %>
+</p>
+
+<p>
+  <strong>状態:</strong>
+  <%= @task.status %>
+</p>
+
+<p>
+  <strong>優先順位:</strong>
+  <%= @task.priority %>
+</p>
+
+
+
 <%= link_to '編集', edit_task_path(@task) %> |
 <%= link_to 'タスク一覧へ戻る', tasks_path %>

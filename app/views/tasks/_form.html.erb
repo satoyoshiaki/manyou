@@ -21,6 +21,21 @@
     <%= form.text_area :description %>
   </div>
 
+  <div class="task_deadline">
+  <%= form.label :終了期限 %>
+  <%= form.datetime_field :deadline %>
+  </div>
+
+  <div class="task_status">
+  <%= form.label :状態 %>
+  <%= form.select :status, ['未着手', '着手中', '完了'] %>
+  </div>
+
+  <div class="task_priority">
+  <%= form.label :優先順位 %>
+  <%= form.select :priority, ['高', '中', '低'] %>
+　</div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

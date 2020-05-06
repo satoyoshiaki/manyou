@@ -2,11 +2,33 @@
 
 <h1>タスク一覧</h1>
 
+
+<div class="">
+  
+     <%= form_with url: tasks_path, method: :get, local: true do |form| %>
+     <%= form.label :task_name, "タスク名" %>
+     <%= form.text_field :task_name, class: "form-control" %>
+     <%= form.label :status, "ステータスで検索" %>
+     <%= form.select :status, ["未着手","着手中","完了"],{include_blank:"選択"}, { id: "search_status", class: "form-control" } %>
+
+     <%= form.hidden_field :search, value:"true" %>
+     <%= form.submit name="検索する" %>
+     <% end %>
+     <a href=''><%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "btnset1" %></a>
+     <%= link_to "優先順位でソートする", tasks_path(sort_rank: "true"), class: "btnset2" %></a>
+</div>
+
+
+
+
 <table>
   <thead>
     <tr>
       <th>タスク名</th>
       <th>タスク内容</th>
+      <th>終了期限</th>
+      <th>状態</th>
+      <th>優先順位</th>
       <th>詳細</th>
       <th>編集</th>
       <th>削除</th>
@@ -19,17 +41,22 @@
       <tr>
         <td  id="task_row" ><%= task.task_name %></td>
         <td><%= task.description %></td>
+        <td><%= task.deadline.strftime("%Y年%-m月%-d日 %-H時%-M分") %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
         <td><%= link_to '詳細', task %></td>
         <td><%= link_to '編集', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しても宜しいでしょうか？' } %></td>
       </tr>
     <% end %>
+    <%= paginate @tasks %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'タスクの作成', new_task_path %>
+<%= link_to 'タスクの作成', new_task_path, class: "create_btn" %>
+
 
 
 
