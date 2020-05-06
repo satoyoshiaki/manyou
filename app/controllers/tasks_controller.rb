@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :login_judge, only: [:create, :edit, :update, :destroy, :new, :show, :index ]
 
   def index
     @tasks = Task.all.order(id: "DESC").page(params[:page]).per(10)
@@ -68,11 +69,21 @@ class TasksController < ApplicationController
   end
   private
 
-    def set_task
-      @task = Task.find(params[:id])
+  def set_task
+    @task = Task.find(params[:id])
+    unless current_user == @task.user
+      redirect_to tasks_path, notice: "他人の投稿はいじれません"
     end
+  end
 
-    def task_params
-      params.require(:task).permit(:task_name, :description, :deadline, :status, :priority)
+
+  def task_params
+    params.require(:task).permit(:task_name, :description, :deadline, :status, :priority)
+  end
+
+  def login_judge
+    unless logged_in?
+      redirect_to new_session_path
     end
+  end
 end

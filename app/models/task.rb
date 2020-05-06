@@ -7,7 +7,7 @@ class Task < ApplicationRecord
 
     scope :title_search, ->(task_name){where("task_name like?", "%#{task_name}%")}
     scope :status_search, ->(status){where(status: status)}
-   
+    has_many :tasks
     
 end
 
