@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy] 
+    before_action :login_judge, only: [:new]
   
     def new
       @user = User.new
@@ -37,5 +38,11 @@ class UsersController < ApplicationController
     end
     def set_user
       @user = User.find(params[:id])
+    end
+    def login_judge
+        if logged_in?
+          flash[:notice] = "ログイン中は新規作成できません"
+          redirect_to tasks_path
+        end
     end
   end

@@ -36,7 +36,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
+    # @task = Task.new(task_params)
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'タスクを作成しました' }

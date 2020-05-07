@@ -38,8 +38,9 @@
 
   <tbody>
     <% @tasks.each do |task| %>
-      <% if task.user_id == current_user.id %>
+      
       <tr>
+      <% if task.user_id == current_user.id %>
         <td  id="task_row" ><%= task.task_name %></td>
         <td><%= task.description %></td>
         <td><%= task.deadline.strftime("%Y年%-m月%-d日 %-H時%-M分") %></td>
