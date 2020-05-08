@@ -6,5 +6,6 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
   validates :email, uniqueness: true
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
+  #これを書くと親親子を作れるらしい
 end
