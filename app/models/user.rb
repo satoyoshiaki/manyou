@@ -8,12 +8,21 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   has_many :tasks, dependent: :destroy
   #これを書くと親親子を作れるらしい
-  before_destroy :admin_delete_ok?
+  before_destroy :admin_exist?
+  before_destroy :admin_update_ok?
   private
 
-  def admin_delete_ok?
-    if User.where(admin: true).count == 1
-      throw (:abort)
+
+  def admin_exist?
+    if User.where(admin: true).count <= 1 && self.admin == true 
+      throw(:abort)
     end
   end
+
+  def admin_update_ok?
+    if User.where(admin: true).count == 1 && self.admin == false
+      throw(:abort)
+    end
+  end
+
 end
