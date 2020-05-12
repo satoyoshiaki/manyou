@@ -1,13 +1,16 @@
 class UsersController < ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy] 
     before_action :login_judge, only: [:new]
-  
+ 
+
+
     def new
       @user = User.new
     end
   
     def show
-      @user = User.find(params[:id])
+      # @user = User.find(params[:id])
+      redirect_to tasks_path unless @user.id == current_user.id
     end
   
     def create
@@ -47,4 +50,7 @@ class UsersController < ApplicationController
           redirect_to tasks_path
         end
     end
+
   end
+
+ 
