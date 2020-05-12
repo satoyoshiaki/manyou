@@ -22,7 +22,7 @@ class TasksController < ApplicationController
       elsif params[:status].present?
         @tasks = @tasks.status_search params[:status]
       else params[:label_id].present?
-        @task = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) 
+        @tasks = Task.page(params[:page]).seach_label(labels: { id: params[:label_id] })
       end
     end
 
