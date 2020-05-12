@@ -7,12 +7,12 @@ class TasksController < ApplicationController
    
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: "DESC").page(params[:page]).per(10)
-    
     end
+
     if params[:sort_rank]
       @tasks = Task.all.order(status: "DESC").page(params[:page]).per(10)
-  
     end
+
     if params[:search].present?
       if params[:task_name].present? and params[:status].present?
         @tasks = @tasks.title_search params[:task_name]
@@ -21,8 +21,11 @@ class TasksController < ApplicationController
         @tasks = @tasks.title_search params[:task_name]
       elsif params[:status].present?
         @tasks = @tasks.status_search params[:status]
+      else params[:label_id].present?
+        @task = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) 
       end
     end
+
   end
 
   def show
@@ -78,7 +81,7 @@ class TasksController < ApplicationController
 
 
   def task_params
-    params.require(:task).permit(:task_name, :description, :deadline, :status, :priority)
+    params.require(:task).permit(:task_name, :description, :deadline, :status, :priority, { label_ids: [] })
   end
 
   def login_judge
