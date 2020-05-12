@@ -14,3 +14,4 @@ FactoryBot.define do
     admin { true }
   end
 end
+

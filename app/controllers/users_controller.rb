@@ -36,9 +36,11 @@ class UsersController < ApplicationController
     def user_params
         params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
+
     def set_user
       @user = User.find(params[:id])
     end
+
     def login_judge
         if logged_in?
           flash[:notice] = "ログイン中は新規作成できません"
