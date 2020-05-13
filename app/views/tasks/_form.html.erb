@@ -37,6 +37,7 @@
 　</div>
 
  <div class="task_label">
+ <%= form.label :ラベルの選択 %>
  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
  </div>
 

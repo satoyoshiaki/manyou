@@ -11,7 +11,7 @@
      <%= form.label :status, "ステータスで検索" %>
      <%= form.select :status, ["未着手","着手中","完了"],{include_blank:"選択"}, { id: "search_status", class: "form-control" } %>
      <%= form.label :status, "ラベルで検索" %>
-     <%= form.select("label_id", Label.pluck(:name, :id), { include_blank: true }) %>
+     <%= form.select("label_id", Label.pluck(:name, :id ), { include_blank: true }, {id: "search_lavel"}) %>
      <%= form.hidden_field :search, value:"true" %>
      <%= form.submit name="検索する" %>
      <% end %>
