@@ -10,7 +10,8 @@
      <%= form.text_field :task_name, class: "form-control" %>
      <%= form.label :status, "ステータスで検索" %>
      <%= form.select :status, ["未着手","着手中","完了"],{include_blank:"選択"}, { id: "search_status", class: "form-control" } %>
-
+     <%= form.label :status, "ラベルで検索" %>
+     <%= form.select("label_id", Label.pluck(:name, :id ), { include_blank: true }, {id: "search_lavel"}) %>
      <%= form.hidden_field :search, value:"true" %>
      <%= form.submit name="検索する" %>
      <% end %>
@@ -38,7 +39,9 @@
 
   <tbody>
     <% @tasks.each do |task| %>
+      
       <tr>
+      <% if task.user_id == current_user.id %>
         <td  id="task_row" ><%= task.task_name %></td>
         <td><%= task.description %></td>
         <td><%= task.deadline.strftime("%Y年%-m月%-d日 %-H時%-M分") %></td>
@@ -48,6 +51,7 @@
         <td><%= link_to '編集', edit_task_path(task) %></td>
         <td><%= link_to '削除', task, method: :delete, data: { confirm: '本当に削除しても宜しいでしょうか？' } %></td>
       </tr>
+      <% end %>
     <% end %>
     <%= paginate @tasks %>
   </tbody>
@@ -56,7 +60,7 @@
 <br>
 
 <%= link_to 'タスクの作成', new_task_path, class: "create_btn" %>
-
+<p><%= link_to 'ラベル一覧と追加へ', labels_path %></p>
 
 
 

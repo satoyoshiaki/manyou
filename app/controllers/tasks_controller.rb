@@ -1,17 +1,18 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :login_judge, only: [:create, :edit, :update, :destroy, :new, :show, :index ]
 
   def index
     @tasks = Task.all.order(id: "DESC").page(params[:page]).per(10)
    
     if params[:sort_expired]
       @tasks = Task.all.order(deadline: "DESC").page(params[:page]).per(10)
-    
     end
+
     if params[:sort_rank]
       @tasks = Task.all.order(status: "DESC").page(params[:page]).per(10)
-  
     end
+
     if params[:search].present?
       if params[:task_name].present? and params[:status].present?
         @tasks = @tasks.title_search params[:task_name]
@@ -20,8 +21,11 @@ class TasksController < ApplicationController
         @tasks = @tasks.title_search params[:task_name]
       elsif params[:status].present?
         @tasks = @tasks.status_search params[:status]
+      else params[:label_id].present?
+        @tasks = Task.page(params[:page]).seach_label(labels: { id: params[:label_id] })
       end
     end
+
   end
 
   def show
@@ -35,7 +39,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: 'タスクを作成しました' }
@@ -68,11 +72,24 @@ class TasksController < ApplicationController
   end
   private
 
-    def set_task
-      @task = Task.find(params[:id])
+  def set_task
+    @task = Task.find(params[:id])
+    unless current_user == @task.user
+      redirect_to tasks_path, notice: "他人の投稿はいじれません"
     end
+  end
 
-    def task_params
-      params.require(:task).permit(:task_name, :description, :deadline, :status, :priority)
+
+  def task_params
+    params.require(:task).permit(:task_name, :description, :deadline, :status, :priority, { label_ids: [] })
+  end
+
+  def login_judge
+    unless logged_in?
+      redirect_to new_session_path
     end
+  end
 end
+
+
+

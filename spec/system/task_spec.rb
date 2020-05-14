@@ -1,67 +1,53 @@
 require "rails_helper"
-describe "タスク管理機能", type: :system do
-  before do
-    @task = FactoryBot.create(:task)
-  end
-  describe "タスク一覧表示機能" do
-    context "タスクを作成したとき" do
-      before do
+RSpec.describe 'ラベルの指定：ラベル検索機能', type: :system do
+    # describe 'ユーザ登録のテスト' do
+    #     context 'ユーザのデータがなくログインしていない場合' do
+    #         it 'ユーザ新規登録のテスト' do
+    #             visit new_user_path
+    #             fill_in 'user[name]', with: 'sample'
+    #             fill_in 'user[email]', with: 'sample@example.com'
+    #             fill_in 'user[password]', with: '00000000'
+    #             fill_in 'user[password_confirmation]', with: '00000000'
+    #             click_button 'Create my account'
+    #             expect(page).to have_content 'sample'
+    #         end
+    #     end
+    # end
+    describe "タスクの作成とラベルの選択", type: :system do
+        before do
+            FactoryBot.create(:user)
+            visit sessions_new_path
+            fill_in 'session[email]', with: 'sample@example.com'
+            fill_in 'session[password]', with: '00000000'
+            click_on 'Log in'
+        end
+      it "タスクの作成、
+          ラベル選択,
+          作成したタスクが表示される,
+          ラベルで検索できる" do
         visit tasks_path
-      end
-      it "作成したタスクが表示される" do
-        expect(page).to have_content "task1"
+        click_on 'ラベル一覧と追加へ'
+        click_on 'New Label'
+        fill_in 'label[name]', with: 'ラベル１'
+        click_on '登録する'
+        visit tasks_path
+        click_on 'タスクの作成'
+        fill_in 'task[task_name]', with: 'aaaaa'
+        fill_in 'task[description]', with: 'aaaaaa'
+        fill_in 'task[deadline]', with: '202020-05-01-10-11'
+        # find('.task_label_ids_1').click
+        check 'ラベル１'
+        click_on '登録する'
+        expect(page).to have_content 'タスクを作成しました'
+  
+        visit tasks_path
+        click_on '詳細'
+        expect(page).to have_content "ラベル１"
+ 
+        visit tasks_path
+        select 'ラベル１', from: 'label_id'
+        click_on "検索する"
+        expect(page).to have_content "aaaaa"
       end
     end
-
-    context "複数のタスクを作成したとき" do
-      before do
-        FactoryBot.create(:task, task_name: "task2", deadline: "2020-05-02", status: "完了", priority: "低")
-        visit tasks_path
-      end
-
-      it "タスクが作成日時の降順で表示される" do
-        task_list = all("#task_row")
-        expect(task_list[0]).to have_content "task2"
-        expect(task_list[1]).to have_content "task1"
-      end
-
-      it "終了期限の昇順で表示される" do
-        visit tasks_path
-        click_link "終了期限でソートする"
-        task_list = all("#task_row")
-        expect(task_list[0]).to have_content "task2"
-        expect(task_list[1]).to have_content "task1"
-      end
-
-      it "優先順位の降順で表示される" do
-        visit tasks_path
-        click_link('優先順位でソートする')
-        save_and_open_page
-        task_list = all("#task_row")
-        expect(task_list[0]).to have_content "task2"
-        expect(task_list[1]).to have_content "task1"
-      end
-
-      it "タイトルでで検索できる" do
-        visit tasks_path
-        fill_in "task_name", with: "task1"
-        click_button "検索する"
-        expect(page).to have_content "task1"
-      end
-
-      it "ステータスで検索できる" do
-        visit tasks_path
-        select "着手中", from: "search_status"
-        click_button "検索する"
-        expect(page).to have_content "task1"
-      end
-
-      it "タスク名とステータスの両方で検索できる" do
-        fill_in "タスク名", with: "task2"
-        select "完了", from: "search_status"
-        click_button "検索する"
-        expect(page).to have_content "task2"
-      end
-    end
-  end
 end

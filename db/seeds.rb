@@ -1,10 +1,13 @@
-20.times do
-    Task.create(task_name: "aaa", description: "rrr", deadline: "2020-05-01", status: 0, priority: 1)
-    end
-    20.times do
-    Task.create(task_name: "bbb", description: "rrr", deadline: "2020-05-05", status: 0, priority: 1)
-    end
+User.create!(name:  "管理者",
+             id: 108,
+             email: "admin@gd.cact",
+             password:  "adminadmin",
+             password_confirmation: "adminadmin",
+             admin: true)
 
-20.times do
-    Task.create(task_name: "bbb", description: "rrr", deadline: "2020-05-05", status: 0, priority: 2)
-    end
+
+Label.create(name: "taskラベル８")
+Label.create(name: "taskラベル9")
+Label.create(name: "taskラベ0")
+Label.create(name: "taskラベル11")
+Label.create(name: "taskラベル4")
